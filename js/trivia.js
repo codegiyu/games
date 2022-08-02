@@ -1,9 +1,7 @@
-let slideIndex = 1;
-let slides = document.getElementsByClassName("question-slides");
-let playerNameText = document.querySelector("#player-name");
-let playerScoreText = document.querySelector("#player-score");
+
+let nameInputScreen = document.querySelector("#name-input-slide");
+let loadingScreenSlide = document.querySelector("#loading-screen-slide");
 let playerName;
-let gameStartTime;
 let nameInput = document.getElementById("games-input");
 let nameValidator = document.querySelector("#input-validation");
 let startBtn = document.querySelector("#game-btn");
@@ -12,6 +10,13 @@ let dotTwo = document.querySelector("#loading-dot-2");
 let dotThree = document.querySelector("#loading-dot-3");
 let loadingPercent = document.querySelector("#loading-percent");
 let loadingFunText = document.querySelector("#loading-fun-text");
+
+let questionsContainer = document.querySelector("#questions-container");
+let slideIndex = 1;
+let slides = document.getElementsByClassName("question-slides");
+let playerNameText = document.querySelector("#player-name");
+let playerScoreText = document.querySelector("#player-score");
+let gameStartTime;
 let questionTimer;
 let nextQuestionTimer;
 let timeLoaded;
@@ -59,14 +64,25 @@ let trackThree = document.querySelectorAll(".question-track-3");
 let trackFour = document.querySelectorAll(".question-track-4");
 let trackFive = document.querySelectorAll(".question-track-5");
 let funTexts = ["Fetching random questions from the internet", "Sourcing the answers from random places", "Filling in some wrong options to confuse you", "Sending you off to battle"];
-answerOne = "Madrid";
-answerTwo = "Black Widow";
-answerThree = "Femur";
-answerFour = "Netherlands";
-answerFive = "1995";
+
+let HTMLQuestionsArray = document.querySelectorAll(".questions-text");
+let q1Options = document.querySelectorAll(".q1-options-text");
+let q2Options = document.querySelectorAll(".q2-options-text");
+let q3Options = document.querySelectorAll(".q3-options-text");
+let q4Options = document.querySelectorAll(".q4-options-text");
+let q5Options = document.querySelectorAll(".q5-options-text");
+let q1Radios = document.querySelectorAll(".q1-options");
+let q2Radios = document.querySelectorAll(".q2-options");
+let q3Radios = document.querySelectorAll(".q3-options");
+let q4Radios = document.querySelectorAll(".q4-options");
+let q5Radios = document.querySelectorAll(".q5-options");
+let HTMLOptionsArray = [q1Options, q2Options, q3Options, q4Options, q5Options];
+let HTMLRadiosArray = [q1Radios, q2Radios, q3Radios, q4Radios, q5Radios];
 
 window.addEventListener("load", () => {
-    showSlides(slideIndex);
+    loadingScreenSlide.style.display = "none";
+    questionsContainer.style.display = "none";
+    getQuestions();
 })
 
 nameInput.addEventListener("input", (e) => {
@@ -93,7 +109,9 @@ nameInput.addEventListener("input", (e) => {
 startBtn.addEventListener("click", () => {
     playerName = nameInput.value;
 
-    nextQuestion(1);
+   nameInputScreen.style.display = "none";
+   loadingScreenSlide.style.display = "block";
+   loadingScreen();
     console.log(playerName);
 })
 
@@ -110,7 +128,9 @@ function loadingScreen() {
     }, 6000);
     setTimeout( () => {
         // showSlides(3);
-        nextQuestion(1);
+        loadingScreenSlide.style.display = "none";
+        questionsContainer.style.display = "block";
+        showSlides(slideIndex);
         console.log(slideIndex);
         // questionTimer = setInterval(function() { showAnswer(slideIndex)}, 13000);
     }, 8000);
@@ -202,6 +222,110 @@ function loadingCountUp(n) {
     }, 25)
 }
 
+let questionsArray = [];
+let newQuestionsArray = [];
+let newOptionsArray = [];
+
+function getQuestions() {
+    fetch('https://the-trivia-api.com/api/questions?categories=general_knowledge,science,sport_and_leisure,film_and_tv,history&limit=50&difficulty=easy')
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(questionsArray)
+            //    console.log(data)
+            questionsArray = data;
+            let Q1 = questionsArray[Math.floor(Math.random() * questionsArray.length)];
+            let secondQuestionsArray = questionsArray.filter(data => data != Q1);
+            let Q2 = secondQuestionsArray[Math.floor(Math.random() * secondQuestionsArray.length)];
+            let thirdQuestionsArray = secondQuestionsArray.filter(data => data != Q2);
+            let Q3 = thirdQuestionsArray[Math.floor(Math.random() * thirdQuestionsArray.length)];
+            let fourthQuestionsArray = thirdQuestionsArray.filter(data => data != Q3);
+            let Q4 = fourthQuestionsArray[Math.floor(Math.random() * fourthQuestionsArray.length)];
+            let fifthQuestionsArray = fourthQuestionsArray.filter(data => data != Q4);
+            let Q5 = fifthQuestionsArray[Math.floor(Math.random() * fifthQuestionsArray.length)];
+
+            newQuestionsArray = [Q1, Q2, Q3, Q4, Q5];
+
+            answerOne = newQuestionsArray[0].correctAnswer;
+            answerTwo = newQuestionsArray[1].correctAnswer;
+            answerThree = newQuestionsArray[2].correctAnswer;
+            answerFour = newQuestionsArray[3].correctAnswer;
+            answerFive = newQuestionsArray[4].correctAnswer;
+
+            let optionsOneArray = newQuestionsArray[0].incorrectAnswers.push(answerOne);
+            let optionsTwoArray = newQuestionsArray[1].incorrectAnswers.push(answerTwo);
+            let optionsThreeArray = newQuestionsArray[2].incorrectAnswers.push(answerThree);
+            let optionsFourArray = newQuestionsArray[3].incorrectAnswers.push(answerFour);
+            let optionsFiveArray = newQuestionsArray[4].incorrectAnswers.push(answerFive);
+            console.log(optionsOneArray);
+            
+            let questionOneOptionsNumbers = [0,1,2,3];
+            let q1OpNum1 = questionOneOptionsNumbers[Math.floor(Math.random() * 4)];
+            let secondQuestionOneOptionsNumbers = questionOneOptionsNumbers.filter(data => data != q1OpNum1);
+            let q1OpNum2 = secondQuestionOneOptionsNumbers[Math.floor(Math.random() * 3)];
+            let thirdQuestionOneOptionsNumbers = secondQuestionOneOptionsNumbers.filter(data => data != q1OpNum2);
+            let q1OpNum3 = thirdQuestionOneOptionsNumbers[Math.floor(Math.random() * 2)];
+            let q1OpNum4 = thirdQuestionOneOptionsNumbers.filter(data => data != q1OpNum3)[0];
+            console.log([q1OpNum1, q1OpNum2, q1OpNum3, q1OpNum4]);
+
+            let questionTwoOptionsNumbers = [0,1,2,3];
+            let q2OpNum1 = questionTwoOptionsNumbers[Math.floor(Math.random() * 4)];
+            let secondQuestionTwoOptionsNumbers = questionTwoOptionsNumbers.filter(data => data != q2OpNum1);
+            let q2OpNum2 = secondQuestionTwoOptionsNumbers[Math.floor(Math.random() * 3)];
+            let thirdQuestionTwoOptionsNumbers = secondQuestionTwoOptionsNumbers.filter(data => data != q2OpNum2);
+            let q2OpNum3 = thirdQuestionTwoOptionsNumbers[Math.floor(Math.random() * 2)];
+            let q2OpNum4 = thirdQuestionTwoOptionsNumbers.filter(data => data != q2OpNum3)[0];
+
+            let questionThreeOptionsNumbers = [0,1,2,3];
+            let q3OpNum1 = questionThreeOptionsNumbers[Math.floor(Math.random() * 4)];
+            let secondQuestionThreeOptionsNumbers = questionThreeOptionsNumbers.filter(data => data != q3OpNum1);
+            let q3OpNum2 = secondQuestionThreeOptionsNumbers[Math.floor(Math.random() * 3)];
+            let thirdQuestionThreeOptionsNumbers = secondQuestionThreeOptionsNumbers.filter(data => data != q3OpNum2);
+            let q3OpNum3 = thirdQuestionThreeOptionsNumbers[Math.floor(Math.random() * 2)];
+            let q3OpNum4 = thirdQuestionThreeOptionsNumbers.filter(data => data != q3OpNum3)[0];
+
+            let questionFourOptionsNumbers = [0,1,2,3];
+            let q4OpNum1 = questionFourOptionsNumbers[Math.floor(Math.random() * 4)];
+            let secondQuestionFourOptionsNumbers = questionFourOptionsNumbers.filter(data => data != q4OpNum1);
+            let q4OpNum2 = secondQuestionFourOptionsNumbers[Math.floor(Math.random() * 3)];
+            let thirdQuestionFourOptionsNumbers = secondQuestionFourOptionsNumbers.filter(data => data != q4OpNum2);
+            let q4OpNum3 = thirdQuestionFourOptionsNumbers[Math.floor(Math.random() * 2)];
+            let q4OpNum4 = thirdQuestionFourOptionsNumbers.filter(data => data != q4OpNum3)[0];
+
+            let questionFiveOptionsNumbers = [0,1,2,3];
+            let q5OpNum1 = questionFiveOptionsNumbers[Math.floor(Math.random() * 4)];
+            let secondQuestionFiveOptionsNumbers = questionFiveOptionsNumbers.filter(data => data != q5OpNum1);
+            let q5OpNum2 = secondQuestionFiveOptionsNumbers[Math.floor(Math.random() * 3)];
+            let thirdQuestionFiveOptionsNumbers = secondQuestionFiveOptionsNumbers.filter(data => data != q5OpNum2);
+            let q5OpNum3 = thirdQuestionFiveOptionsNumbers[Math.floor(Math.random() * 2)];
+            let q5OpNum4 = thirdQuestionFiveOptionsNumbers.filter(data => data != q5OpNum3)[0];
+
+            let newOptionsOneArray = [newQuestionsArray[0].incorrectAnswers[q1OpNum1], newQuestionsArray[0].incorrectAnswers[q1OpNum2], newQuestionsArray[0].incorrectAnswers[q1OpNum3], newQuestionsArray[0].incorrectAnswers[q1OpNum4]];
+            let newOptionsTwoArray = [newQuestionsArray[1].incorrectAnswers[q2OpNum1], newQuestionsArray[1].incorrectAnswers[q2OpNum2], newQuestionsArray[1].incorrectAnswers[q2OpNum3], newQuestionsArray[1].incorrectAnswers[q2OpNum4]];
+            let newOptionsThreeArray = [newQuestionsArray[2].incorrectAnswers[q3OpNum1], newQuestionsArray[2].incorrectAnswers[q3OpNum2], newQuestionsArray[2].incorrectAnswers[q3OpNum3], newQuestionsArray[2].incorrectAnswers[q3OpNum4]];
+            let newOptionsFourArray = [newQuestionsArray[3].incorrectAnswers[q4OpNum1], newQuestionsArray[3].incorrectAnswers[q4OpNum2], newQuestionsArray[3].incorrectAnswers[q4OpNum3], newQuestionsArray[3].incorrectAnswers[q4OpNum4]];
+            let newOptionsFiveArray = [newQuestionsArray[4].incorrectAnswers[q5OpNum1], newQuestionsArray[4].incorrectAnswers[q5OpNum2], newQuestionsArray[4].incorrectAnswers[q5OpNum3], newQuestionsArray[4].incorrectAnswers[q5OpNum4]];
+
+            newOptionsArray = [newOptionsOneArray, newOptionsTwoArray, newOptionsThreeArray, newOptionsFourArray, newOptionsFiveArray];
+            console.log(newOptionsArray);
+            displayQuestions(newQuestionsArray);
+        }) 
+}
+
+function displayQuestions(arr) {
+    console.log(arr.length);
+    console.log(arr);
+
+    for (let x = 0; x < arr.length; x++) {
+        HTMLQuestionsArray[x].innerHTML = arr[x].question;
+
+        for (let y = 0; y < 4; y++) {
+            HTMLOptionsArray[x][y].innerHTML = newOptionsArray[x][y];
+            HTMLRadiosArray[x][y].value = newOptionsArray[x][y];
+        }
+    }
+}
+
+
 function showSlides(n) {
     let i;
     
@@ -214,21 +338,17 @@ function showSlides(n) {
 
         slides[n-1].style.display = "block";
 
-        if (n == 2) {
-            loadingScreen();
-        }
-
         timeLoaded = new Date();
-        if (n == 3) {
+        if (n == 1) {
             gameStartTime = timeLoaded;
             console.log(gameStartTime);
         }
         console.log(slideIndex);
 
-        if (n > 2 && n < 8) {
+        if (n > 0 && n < 7) {
             clearInterval(questionTimer);
             questionTimer = setInterval(function() { showAnswer(slideIndex)}, 13000);
-            console.log("moving on")
+            console.log("moving on");
         } else {
             console.log("cleared timer")
             clearInterval(questionTimer);
@@ -236,7 +356,7 @@ function showSlides(n) {
     }
     
     countDowns = setTimeout( () => {
-        if (slideIndex == 3) {
+        if (slideIndex == 1) {
             secondsCountdownOne = setInterval(function() {
                 countdownCircle[0].classList.replace("grey-border", "green-border");
                 countdownText[0].classList.replace("text-white", "text-green");
@@ -250,7 +370,7 @@ function showSlides(n) {
                 }
                 secondsText[0].innerHTML = secondsOne;
             }, 1000);
-        } else if (slideIndex == 4) {
+        } else if (slideIndex == 2) {
             secondsCountdownTwo = setInterval(function() {
                 countdownCircle[1].classList.replace("grey-border", "green-border");
                 countdownText[1].classList.replace("text-white", "text-green");
@@ -264,7 +384,7 @@ function showSlides(n) {
                 }
                 secondsText[1].innerHTML = secondsTwo;
             }, 1000);
-        } else if (slideIndex == 5) {
+        } else if (slideIndex == 3) {
             secondsCountdownThree = setInterval(function() {
                 countdownCircle[2].classList.replace("grey-border", "green-border");
                 countdownText[2].classList.replace("text-white", "text-green");
@@ -278,7 +398,7 @@ function showSlides(n) {
                 }
                 secondsText[2].innerHTML = secondsThree;
             }, 1000);
-        } else if (slideIndex == 6) {
+        } else if (slideIndex == 4) {
             secondsCountdownFour = setInterval(function() {
                 countdownCircle[3].classList.replace("grey-border", "green-border");
                 countdownText[3].classList.replace("text-white", "text-green");
@@ -292,7 +412,7 @@ function showSlides(n) {
                 }
                 secondsText[3].innerHTML = secondsFour;
             }, 1000);
-        } else if (slideIndex == 7) {
+        } else if (slideIndex == 5) {
             secondsCountdownFive = setInterval(function() {
                 countdownCircle[4].classList.replace("grey-border", "green-border");
                 countdownText[4].classList.replace("text-white", "text-green");
@@ -313,15 +433,17 @@ function showSlides(n) {
 function showAnswer(n) {
     clearInterval(questionTimer);
     console.log(`slideIndex is ${slideIndex}`)
-    let allOptions = document.querySelectorAll(`.q${n-2}-options`);
+    let allOptions = document.querySelectorAll(`.q${n}-options`);
     allOptions.forEach(option => {
         option.checked = true;
         option.parentElement.classList.replace("dark-grey-border", "red-border");
         option.previousElementSibling.classList.replace("text-grey-2", "text-red");
         option.style.backgroundImage = "url('img/redx-1.png')";
     })
-    if (n == 3) {
-        let correctOption = document.querySelector(`.q${n-2}-options[value='${answerOne}']`);
+    console.log(answerOne);
+    console
+    if (n == 1) {
+        let correctOption = document.querySelector(`.q${n}-options[value='${answerOne}']`);
         correctOption.parentElement.classList.replace("red-border", "green-border");
         correctOption.previousElementSibling.classList.replace("text-red", "text-green");
         correctOption.checked = true;
@@ -330,8 +452,8 @@ function showAnswer(n) {
             track.classList.replace("bg-white", "bg-red");
             track.classList.replace("bg-neutral-1", "bg-red");
         })
-    } else if (n == 4) {
-        let correctOption = document.querySelector(`.q${n-2}-options[value='${answerTwo}']`);
+    } else if (n == 2) {
+        let correctOption = document.querySelector(`.q${n}-options[value='${answerTwo}']`);
         correctOption.parentElement.classList.replace("red-border", "green-border");
         correctOption.previousElementSibling.classList.replace("text-red", "text-green");
         correctOption.checked = true;
@@ -340,8 +462,8 @@ function showAnswer(n) {
             track.classList.replace("bg-white", "bg-red");
             track.classList.replace("bg-neutral-1", "bg-red");
         })
-    } else if (n == 5) {
-        let correctOption = document.querySelector(`.q${n-2}-options[value='${answerThree}']`);
+    } else if (n == 3) {
+        let correctOption = document.querySelector(`.q${n}-options[value='${answerThree}']`);
         correctOption.parentElement.classList.replace("red-border", "green-border");
         correctOption.previousElementSibling.classList.replace("text-red", "text-green");
         correctOption.checked = true;
@@ -350,8 +472,8 @@ function showAnswer(n) {
             track.classList.replace("bg-white", "bg-red");
             track.classList.replace("bg-neutral-1", "bg-red");
         })
-    } else if (n == 6) {
-        let correctOption = document.querySelector(`.q${n-2}-options[value='${answerFour}']`);
+    } else if (n == 4) {
+        let correctOption = document.querySelector(`.q${n}-options[value='${answerFour}']`);
         correctOption.parentElement.classList.replace("red-border", "green-border");
         correctOption.previousElementSibling.classList.replace("text-red", "text-green");
         correctOption.checked = true;
@@ -360,8 +482,8 @@ function showAnswer(n) {
             track.classList.replace("bg-white", "bg-red");
             track.classList.replace("bg-neutral-1", "bg-red");
         })
-    } else if (n == 7) {
-        let correctOption = document.querySelector(`.q${n-2}-options[value='${answerFive}']`);
+    } else if (n == 5) {
+        let correctOption = document.querySelector(`.q${n}-options[value='${answerFive}']`);
         correctOption.parentElement.classList.replace("red-border", "green-border");
         correctOption.previousElementSibling.classList.replace("text-red", "text-green");
         correctOption.checked = true;
@@ -382,7 +504,7 @@ function showAnswer(n) {
         }
     }
     
-    if (slideIndex < 8) {
+    if (slideIndex < 6) {
         console.log(`this is slide ${slideIndex}`);
         nextQuestionTimer = setTimeout( () => { nextQuestion(2)}, 2000);
     }
@@ -392,13 +514,7 @@ function nextQuestion(n) {
     clearInterval(questionTimer);
     clearTimeout(nextQuestionTimer);
     
-    // if (slideIndex != slides.length + 1) {
-        showSlides(slideIndex += 1);
-
-        // if(slideIndex > 2 && slideIndex < 8) {
-        //     questionTimer = setInterval(function() { showAnswer(slideIndex)}, 13000);
-        // }
-    // }
+    showSlides(slideIndex += 1);
 }
 
 let radios = document.querySelectorAll('input[type="checkbox"]');
@@ -433,11 +549,7 @@ radios.forEach(radio => {
         clickTime = new Date();
         bonusTime = clickTime - timeLoaded;
 
-        if (bonusTime - 3000 < 0) {
-            pointsAchieved += 100;
-        } else {
-            pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
-        }
+        
 
         console.log(bonusTime);
         console.log(pointsAchieved);
@@ -455,6 +567,11 @@ radios.forEach(radio => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
+                    if (bonusTime - 3000 < 0) {
+                        pointsAchieved += 100;
+                    } else {
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                    }
                 } else {
                     radio.parentElement.classList.replace("blue-border", "red-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-red");
@@ -480,6 +597,11 @@ radios.forEach(radio => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
+                    if (bonusTime - 3000 < 0) {
+                        pointsAchieved += 100;
+                    } else {
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                    }
                 } else {
                     radio.parentElement.classList.replace("blue-border", "red-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-red");
@@ -505,6 +627,11 @@ radios.forEach(radio => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
+                    if (bonusTime - 3000 < 0) {
+                        pointsAchieved += 100;
+                    } else {
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                    }
                 } else {
                     radio.parentElement.classList.replace("blue-border", "red-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-red");
@@ -530,6 +657,11 @@ radios.forEach(radio => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
+                    if (bonusTime - 3000 < 0) {
+                        pointsAchieved += 100;
+                    } else {
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                    }
                 } else {
                     radio.parentElement.classList.replace("blue-border", "red-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-red");
@@ -555,6 +687,11 @@ radios.forEach(radio => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
+                    if (bonusTime - 3000 < 0) {
+                        pointsAchieved += 100;
+                    } else {
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                    }
                     playerNameText.innerHTML = playerName;
                     playerScoreText.innerHTML = pointsAchieved;
                     if (pointsAchieved < 500) {
@@ -591,9 +728,4 @@ radios.forEach(radio => {
             }
         }, 1000)
     })
-})
-
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
 })
