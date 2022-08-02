@@ -112,7 +112,7 @@ startBtn.addEventListener("click", () => {
    nameInputScreen.style.display = "none";
    loadingScreenSlide.style.display = "block";
    loadingScreen();
-    console.log(playerName);
+    
 })
 
 function loadingScreen() {
@@ -131,7 +131,7 @@ function loadingScreen() {
         loadingScreenSlide.style.display = "none";
         questionsContainer.style.display = "block";
         showSlides(slideIndex);
-        console.log(slideIndex);
+        
         // questionTimer = setInterval(function() { showAnswer(slideIndex)}, 13000);
     }, 8000);
 }
@@ -212,7 +212,7 @@ function loadingCountUp(n) {
     let countUp = setInterval( () => {
         let currentNumber = loadingPercent.innerHTML;
         if (currentNumber < n) {
-            // console.log(currentNumber);
+            // 
             currentNumber++;
         }
         loadingPercent.innerHTML = currentNumber;
@@ -230,8 +230,8 @@ function getQuestions() {
     fetch('https://the-trivia-api.com/api/questions?categories=general_knowledge,science,sport_and_leisure,film_and_tv,history&limit=50&difficulty=easy')
         .then((response) => response.json())
         .then((data) => {
-            console.log(questionsArray)
-            //    console.log(data)
+            
+            //    
             questionsArray = data;
             let Q1 = questionsArray[Math.floor(Math.random() * questionsArray.length)];
             let secondQuestionsArray = questionsArray.filter(data => data != Q1);
@@ -256,7 +256,7 @@ function getQuestions() {
             let optionsThreeArray = newQuestionsArray[2].incorrectAnswers.push(answerThree);
             let optionsFourArray = newQuestionsArray[3].incorrectAnswers.push(answerFour);
             let optionsFiveArray = newQuestionsArray[4].incorrectAnswers.push(answerFive);
-            console.log(optionsOneArray);
+            
             
             let questionOneOptionsNumbers = [0,1,2,3];
             let q1OpNum1 = questionOneOptionsNumbers[Math.floor(Math.random() * 4)];
@@ -265,7 +265,7 @@ function getQuestions() {
             let thirdQuestionOneOptionsNumbers = secondQuestionOneOptionsNumbers.filter(data => data != q1OpNum2);
             let q1OpNum3 = thirdQuestionOneOptionsNumbers[Math.floor(Math.random() * 2)];
             let q1OpNum4 = thirdQuestionOneOptionsNumbers.filter(data => data != q1OpNum3)[0];
-            console.log([q1OpNum1, q1OpNum2, q1OpNum3, q1OpNum4]);
+            
 
             let questionTwoOptionsNumbers = [0,1,2,3];
             let q2OpNum1 = questionTwoOptionsNumbers[Math.floor(Math.random() * 4)];
@@ -306,14 +306,14 @@ function getQuestions() {
             let newOptionsFiveArray = [newQuestionsArray[4].incorrectAnswers[q5OpNum1], newQuestionsArray[4].incorrectAnswers[q5OpNum2], newQuestionsArray[4].incorrectAnswers[q5OpNum3], newQuestionsArray[4].incorrectAnswers[q5OpNum4]];
 
             newOptionsArray = [newOptionsOneArray, newOptionsTwoArray, newOptionsThreeArray, newOptionsFourArray, newOptionsFiveArray];
-            console.log(newOptionsArray);
+            
             displayQuestions(newQuestionsArray);
         }) 
 }
 
 function displayQuestions(arr) {
-    console.log(arr.length);
-    console.log(arr);
+    
+    
 
     for (let x = 0; x < arr.length; x++) {
         HTMLQuestionsArray[x].innerHTML = arr[x].question;
@@ -341,16 +341,16 @@ function showSlides(n) {
         timeLoaded = new Date();
         if (n == 1) {
             gameStartTime = timeLoaded;
-            console.log(gameStartTime);
+            
         }
-        console.log(slideIndex);
+        
 
         if (n > 0 && n < 7) {
             clearInterval(questionTimer);
             questionTimer = setInterval(function() { showAnswer(slideIndex)}, 13000);
-            console.log("moving on");
+            
         } else {
-            console.log("cleared timer")
+            
             clearInterval(questionTimer);
         }
     }
@@ -432,7 +432,7 @@ function showSlides(n) {
 
 function showAnswer(n) {
     clearInterval(questionTimer);
-    console.log(`slideIndex is ${slideIndex}`)
+    
     let allOptions = document.querySelectorAll(`.q${n}-options`);
     allOptions.forEach(option => {
         option.checked = true;
@@ -440,7 +440,7 @@ function showAnswer(n) {
         option.previousElementSibling.classList.replace("text-grey-2", "text-red");
         option.style.backgroundImage = "url('img/redx-1.png')";
     })
-    console.log(answerOne);
+    
     console
     if (n == 1) {
         let correctOption = document.querySelector(`.q${n}-options[value='${answerOne}']`);
@@ -505,7 +505,7 @@ function showAnswer(n) {
     }
     
     if (slideIndex < 6) {
-        console.log(`this is slide ${slideIndex}`);
+        
         nextQuestionTimer = setTimeout( () => { nextQuestion(2)}, 2000);
     }
 }
@@ -551,8 +551,8 @@ radios.forEach(radio => {
 
         
 
-        console.log(bonusTime);
-        console.log(pointsAchieved);
+        
+        
         clearInterval(questionTimer);
         nextQuestionTimer = setTimeout( () => { nextQuestion(2)}, 3000);
 
