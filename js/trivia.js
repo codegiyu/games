@@ -227,7 +227,7 @@ let newQuestionsArray = [];
 let newOptionsArray = [];
 
 function getQuestions() {
-    fetch('https://the-trivia-api.com/api/questions?categories=arts_and_literature,film_and_tv,food_and_drink,general_knowledge,geography,history,music,science,society_and_culture,sport_and_leisure&limit=50&difficulty=hard')
+    fetch('https://the-trivia-api.com/api/questions?categories=arts_and_literature,film_and_tv,food_and_drink,general_knowledge,geography,history,music,science,society_and_culture,sport_and_leisure&limit=50&difficulty=easy')
         .then((response) => response.json())
         .then((data) => {
             
