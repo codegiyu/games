@@ -16,6 +16,7 @@ let slideIndex = 1;
 let slides = document.getElementsByClassName("question-slides");
 let playerNameText = document.querySelector("#player-name");
 let playerScoreText = document.querySelector("#player-score");
+let congratsText = document.querySelector(".congrats-text");
 let gameStartTime;
 let questionTimer;
 let nextQuestionTimer;
@@ -493,6 +494,16 @@ function showAnswer(n) {
             track.classList.replace("bg-neutral-1", "bg-red");
         })
         
+        if (pointsAchieved < 150) {
+            congratsText.innerHTML = "What type of playing is this?"
+        } else if (pointsAchieved >= 150 && pointsAchieved < 300) {
+            congratsText.innerHTML = "Is this playing?"
+        } else if (pointsAchieved >= 300 && pointsAchieved < 500) {
+            congratsText.innerHTML = "Failure is success in progress"
+        } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
+            congratsText.innerHTML = "Congratulations!"
+        }
+        congratsText.innerHTML = 
         playerNameText.innerHTML = playerName;
         playerScoreText.innerHTML = pointsAchieved;
         if (pointsAchieved < 500) {
@@ -692,6 +703,18 @@ radios.forEach(radio => {
                     } else {
                         pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
+                    if (pointsAchieved < 150) {
+                        congratsText.innerHTML = "What type of playing is this?"
+                    } else if (pointsAchieved >= 150 && pointsAchieved < 300) {
+                        congratsText.innerHTML = "Is this playing?"
+                    } else if (pointsAchieved >= 300 && pointsAchieved < 500) {
+                        congratsText.innerHTML = "Failure is success in progress"
+                    } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
+                        congratsText.innerHTML = "Congratulations!"
+                    } else {
+                        congratsText.innerHTML = "You're an inspiration!"
+                    }
+                    congratsText.innerHTML = 
                     playerNameText.innerHTML = playerName;
                     playerScoreText.innerHTML = pointsAchieved;
                     if (pointsAchieved < 500) {
@@ -715,6 +738,16 @@ radios.forEach(radio => {
                         track.classList.replace("bg-white", "bg-red");
                         track.classList.replace("bg-neutral-1", "bg-red");
                     })
+                    if (pointsAchieved < 150) {
+                        congratsText.innerHTML = "What type of playing is this?"
+                    } else if (pointsAchieved >= 150 && pointsAchieved < 300) {
+                        congratsText.innerHTML = "Is this playing?"
+                    } else if (pointsAchieved >= 300 && pointsAchieved < 500) {
+                        congratsText.innerHTML = "Failure is success in progress"
+                    } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
+                        congratsText.innerHTML = "Congratulations!"
+                    }
+                    congratsText.innerHTML = 
                     playerNameText.innerHTML = playerName;
                     playerScoreText.innerHTML = pointsAchieved;
                     if (pointsAchieved < 500) {
