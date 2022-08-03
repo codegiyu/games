@@ -562,15 +562,15 @@ radios.forEach(radio => {
                     radio.parentElement.classList.replace("blue-border", "green-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-green");
                     radio.style.backgroundImage = "url('img/green-tick.png')";
-                    pointsAchieved += 100;
+                    pointsAchieved += 150;
                     trackOne.forEach(track => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 100;
+                        pointsAchieved += 150;
                     } else {
-                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
                 } else {
                     radio.parentElement.classList.replace("blue-border", "red-border");
@@ -592,15 +592,15 @@ radios.forEach(radio => {
                     radio.parentElement.classList.replace("blue-border", "green-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-green");
                     radio.style.backgroundImage = "url('img/green-tick.png')";
-                    pointsAchieved += 100;
+                    pointsAchieved += 150;
                     trackTwo.forEach(track => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 100;
+                        pointsAchieved += 150;
                     } else {
-                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
                 } else {
                     radio.parentElement.classList.replace("blue-border", "red-border");
@@ -622,15 +622,15 @@ radios.forEach(radio => {
                     radio.parentElement.classList.replace("blue-border", "green-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-green");
                     radio.style.backgroundImage = "url('img/green-tick.png')";
-                    pointsAchieved += 100;
+                    pointsAchieved += 150;
                     trackThree.forEach(track => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 100;
+                        pointsAchieved += 150;
                     } else {
-                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
                 } else {
                     radio.parentElement.classList.replace("blue-border", "red-border");
@@ -652,15 +652,15 @@ radios.forEach(radio => {
                     radio.parentElement.classList.replace("blue-border", "green-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-green");
                     radio.style.backgroundImage = "url('img/green-tick.png')";
-                    pointsAchieved += 100;
+                    pointsAchieved += 150;
                     trackFour.forEach(track => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 100;
+                        pointsAchieved += 150;
                     } else {
-                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
                 } else {
                     radio.parentElement.classList.replace("blue-border", "red-border");
@@ -682,15 +682,15 @@ radios.forEach(radio => {
                     radio.parentElement.classList.replace("blue-border", "green-border");
                     radio.previousElementSibling.classList.replace("text-blue", "text-green");
                     radio.style.backgroundImage = "url('img/green-tick.png')";
-                    pointsAchieved += 100;
+                    pointsAchieved += 150;
                     trackFive.forEach(track => {
                         track.classList.replace("bg-white", "bg-green");
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 100;
+                        pointsAchieved += 150;
                     } else {
-                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 100);
+                        pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
                     playerNameText.innerHTML = playerName;
                     playerScoreText.innerHTML = pointsAchieved;
