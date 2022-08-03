@@ -228,7 +228,7 @@ let newQuestionsArray = [];
 let newOptionsArray = [];
 
 function getQuestions() {
-    fetch('https://the-trivia-api.com/api/questions?categories=arts_and_literature,film_and_tv,food_and_drink,general_knowledge,geography,history,music,science,society_and_culture,sport_and_leisure&limit=50&difficulty=easy')
+    fetch('https://the-trivia-api.com/api/questions?categories=arts_and_literature,film_and_tv,food_and_drink,general_knowledge,geography,history,music,science,society_and_culture,sport_and_leisure&limit=50&difficulty=medium')
         .then((response) => response.json())
         .then((data) => {
             
@@ -503,7 +503,7 @@ function showAnswer(n) {
         } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
             congratsText.innerHTML = "Congratulations!"
         }
-        congratsText.innerHTML = 
+         
         playerNameText.innerHTML = playerName;
         playerScoreText.innerHTML = pointsAchieved;
         if (pointsAchieved < 500) {
@@ -579,7 +579,7 @@ radios.forEach(radio => {
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 150;
+                        pointsAchieved += 50;
                     } else {
                         pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
@@ -609,7 +609,7 @@ radios.forEach(radio => {
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 150;
+                        pointsAchieved += 50;
                     } else {
                         pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
@@ -639,7 +639,7 @@ radios.forEach(radio => {
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 150;
+                        pointsAchieved += 50;
                     } else {
                         pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
@@ -669,7 +669,7 @@ radios.forEach(radio => {
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 150;
+                        pointsAchieved += 50;
                     } else {
                         pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
@@ -699,7 +699,7 @@ radios.forEach(radio => {
                         track.classList.replace("bg-neutral-1", "bg-green");
                     })
                     if (bonusTime - 3000 < 0) {
-                        pointsAchieved += 150;
+                        pointsAchieved += 50;
                     } else {
                         pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
@@ -714,7 +714,7 @@ radios.forEach(radio => {
                     } else {
                         congratsText.innerHTML = "You're an inspiration!"
                     }
-                    congratsText.innerHTML = 
+                    
                     playerNameText.innerHTML = playerName;
                     playerScoreText.innerHTML = pointsAchieved;
                     if (pointsAchieved < 500) {
@@ -747,7 +747,7 @@ radios.forEach(radio => {
                     } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
                         congratsText.innerHTML = "Congratulations!"
                     }
-                    congratsText.innerHTML = 
+                    
                     playerNameText.innerHTML = playerName;
                     playerScoreText.innerHTML = pointsAchieved;
                     if (pointsAchieved < 500) {
