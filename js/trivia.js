@@ -6,7 +6,7 @@ let playerName;
 let nameInput = document.getElementById("games-input");
 let nameValidator = document.querySelector("#input-validation");
 let startBtn = document.querySelector("#game-btn");
-let optionsBtn = document.querySelector("#game-btn");
+let optionsBtn = document.querySelector("#options-btn");
 let dotOne = document.querySelector("#loading-dot-1");
 let dotTwo = document.querySelector("#loading-dot-2");
 let dotThree = document.querySelector("#loading-dot-3");
@@ -105,6 +105,7 @@ window.addEventListener("load", () => {
     loadingScreenSlide.style.display = "none";
     questionsContainer.style.display = "none";
     optionSelectSlide.style.display = "none";
+    // nameInputScreen.style.display = "none";
 })
 
 nameInput.addEventListener("input", (e) => {
@@ -133,14 +134,18 @@ startBtn.addEventListener("click", () => {
 
    nameInputScreen.style.display = "none";
    optionSelectSlide.style.display = "block";
+   console.log("to options select")
 })
 
 topicsSelect.forEach(topic => {
     topic.addEventListener("change", () => {
+        console.log(topicsSelect)
         if (topicSelected() && difficultySelected()) {
             optionsBtn.disabled = false;
+            console.log("enabled")
         } else {
             optionsBtn.disabled = true;
+            console.log("disabled")
         }
     })
 })
@@ -155,10 +160,13 @@ function topicSelected() {
 
 difficultySelect.forEach(difficulty => {
     difficulty.addEventListener("change", () => {
+        console.log(difficultySelect);
         if (topicSelected() && difficultySelected()) {
             optionsBtn.disabled = false;
+            console.log("enabled")
         } else {
             optionsBtn.disabled = true;
+            console.log("disabled")
         }
     })
 })
@@ -175,14 +183,21 @@ optionsBtn.addEventListener("click", () => {
     for (let i = 0; i < topicsSelect.length; i++) {
         if (topicsSelect[i].checked) {
             if (quizFetchTopics === "") {
-                quizFetchTopics += topicsSelect[i].checked.value;
+                quizFetchTopics += topicsSelect[i].value;
             } else {
-                quizFetchTopics += `,${topicsSelect[i].checked.value}`;
+                quizFetchTopics += `,${topicsSelect[i].value}`;
             }
+            console.log(quizFetchTopics);
         }
     }
 
-    quizFetchDifficulty = difficultySelect[i].checked.value;
+    for (let i = 0; i < difficultySelect.length; i++) {
+        if (difficultySelect[i].checked) {
+            quizFetchDifficulty = difficultySelect[i].value;
+        }
+        console.log(quizFetchDifficulty);
+    }
+    
 
     optionSelectSlide.style.display = "none";
     loadingScreenSlide.style.display = "block";
@@ -302,7 +317,7 @@ let newQuestionsArray = [];
 let newOptionsArray = [];
 
 function getQuestions() {
-    fetch(`https://the-trivia-api.com/api/questions?${quizFetchTopics}&difficulty=${quizFetchDifficulty}`)
+    fetch(`https://the-trivia-api.com/api/questions?${quizFetchTopics}&limit=50&difficulty=${quizFetchDifficulty}`)
         .then((response) => response.json())
         .then((data) => {
             
@@ -602,11 +617,11 @@ function nextQuestion(n) {
     showSlides(slideIndex += 1);
 }
 
-let radios = document.querySelectorAll('input[type="checkbox"]');
-
+let radios = document.querySelectorAll('.quiz-checkbox');
+console.log(radios)
 radios.forEach(radio => {
     radio.addEventListener("click", () => {
-        let radioName = radio.getAttribute("class");
+        let radioName = radio.getAttribute("class").split(" ")[1];
         let radioQuestion = radioName.charAt(1);
 
         if (radioQuestion == 1) {
