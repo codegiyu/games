@@ -1,15 +1,36 @@
 
 let nameInputScreen = document.querySelector("#name-input-slide");
 let loadingScreenSlide = document.querySelector("#loading-screen-slide");
+let optionSelectSlide = document.querySelector("#options-select-slide");
 let playerName;
 let nameInput = document.getElementById("games-input");
 let nameValidator = document.querySelector("#input-validation");
 let startBtn = document.querySelector("#game-btn");
+let optionsBtn = document.querySelector("#game-btn");
 let dotOne = document.querySelector("#loading-dot-1");
 let dotTwo = document.querySelector("#loading-dot-2");
 let dotThree = document.querySelector("#loading-dot-3");
 let loadingPercent = document.querySelector("#loading-percent");
 let loadingFunText = document.querySelector("#loading-fun-text");
+
+let option1 = document.querySelector("#topic1");
+let option2 = document.querySelector("#topic2");
+let option3 = document.querySelector("#topic3");
+let option4 = document.querySelector("#topic4");
+let option5 = document.querySelector("#topic5");
+let option6 = document.querySelector("#topic6");
+let option7 = document.querySelector("#topic7");
+let option8 = document.querySelector("#topic8");
+let option9 = document.querySelector("#topic9");
+let option10 = document.querySelector("#topic10");
+let topicsSelect = document.querySelectorAll(".quiz-options")
+let difficulty1 = document.querySelector("#difficulty1");
+let difficulty2 = document.querySelector("#difficulty2");
+let difficulty3 = document.querySelector("#difficulty3");
+let difficultySelect = document.querySelectorAll(".quiz-difficulty");
+
+let quizFetchTopics = "";
+let quizFetchDifficulty = "";
 
 let questionsContainer = document.querySelector("#questions-container");
 let slideIndex = 1;
@@ -83,7 +104,7 @@ let HTMLRadiosArray = [q1Radios, q2Radios, q3Radios, q4Radios, q5Radios];
 window.addEventListener("load", () => {
     loadingScreenSlide.style.display = "none";
     questionsContainer.style.display = "none";
-    getQuestions();
+    optionSelectSlide.style.display = "none";
 })
 
 nameInput.addEventListener("input", (e) => {
@@ -111,9 +132,62 @@ startBtn.addEventListener("click", () => {
     playerName = nameInput.value;
 
    nameInputScreen.style.display = "none";
-   loadingScreenSlide.style.display = "block";
-   loadingScreen();
-    
+   optionSelectSlide.style.display = "block";
+})
+
+topicsSelect.forEach(topic => {
+    topic.addEventListener("change", () => {
+        if (topicSelected() && difficultySelected()) {
+            optionsBtn.disabled = false;
+        } else {
+            optionsBtn.disabled = true;
+        }
+    })
+})
+
+function topicSelected() {
+    for (let i = 0; i < topicsSelect.length; i++) {
+        if (topicsSelect[i].checked) return true;
+    }
+
+    return false;
+}
+
+difficultySelect.forEach(difficulty => {
+    difficulty.addEventListener("change", () => {
+        if (topicSelected() && difficultySelected()) {
+            optionsBtn.disabled = false;
+        } else {
+            optionsBtn.disabled = true;
+        }
+    })
+})
+
+function difficultySelected() {
+    for (let i = 0; i < difficultySelect.length; i++) {
+        if (difficultySelect[i].checked) return true;
+    }
+
+    return false;
+}
+
+optionsBtn.addEventListener("click", () => {
+    for (let i = 0; i < topicsSelect.length; i++) {
+        if (topicsSelect[i].checked) {
+            if (quizFetchTopics === "") {
+                quizFetchTopics += topicsSelect[i].checked.value;
+            } else {
+                quizFetchTopics += `,${topicsSelect[i].checked.value}`;
+            }
+        }
+    }
+
+    quizFetchDifficulty = difficultySelect[i].checked.value;
+
+    optionSelectSlide.style.display = "none";
+    loadingScreenSlide.style.display = "block";
+    getQuestions();
+    loadingScreen();
 })
 
 function loadingScreen() {
@@ -228,7 +302,7 @@ let newQuestionsArray = [];
 let newOptionsArray = [];
 
 function getQuestions() {
-    fetch('https://the-trivia-api.com/api/questions?categories=arts_and_literature,film_and_tv,food_and_drink,general_knowledge,geography,history,music,science,society_and_culture,sport_and_leisure&limit=50&difficulty=medium')
+    fetch(`https://the-trivia-api.com/api/questions?${quizFetchTopics}&difficulty=${quizFetchDifficulty}`)
         .then((response) => response.json())
         .then((data) => {
             
@@ -704,15 +778,15 @@ radios.forEach(radio => {
                         pointsAchieved += Math.floor((10000 - (bonusTime - 3000)) / 200);
                     }
                     if (pointsAchieved < 150) {
-                        congratsText.innerHTML = "What type of playing is this?"
+                        congratsText.innerHTML = "What type of playing is this?🤡"
                     } else if (pointsAchieved >= 150 && pointsAchieved < 300) {
-                        congratsText.innerHTML = "Is this playing?"
+                        congratsText.innerHTML = "Is this playing?🙄"
                     } else if (pointsAchieved >= 300 && pointsAchieved < 500) {
-                        congratsText.innerHTML = "Failure is success in progress"
+                        congratsText.innerHTML = "Failure is success in progress🙂"
                     } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
-                        congratsText.innerHTML = "Congratulations!"
+                        congratsText.innerHTML = "Congratulations!😎"
                     } else {
-                        congratsText.innerHTML = "You're an inspiration!"
+                        congratsText.innerHTML = "You're an inspiration!😍"
                     }
                     
                     playerNameText.innerHTML = playerName;

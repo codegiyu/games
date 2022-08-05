@@ -54,7 +54,7 @@ section{
     overflow-x: hidden;
 }
 
-.question-slides, .start-slide, .congratulations-screen-slide {
+.question-slides, .start-slide, .congratulations-screen-slide, .options-select-slide {
     min-height: 100vh;
 }
 
@@ -66,12 +66,13 @@ section{
 
 .name-input-container, 
 .loading-screen-container,
-.congratulations-screen-container { min-height: calc(100vh - 48px) !important;}
+.congratulations-screen-container, .options-select-container  { min-height: calc(100vh - 48px) !important;}
 
 @media only screen and (min-width: 576px) {
     .name-input-container, 
     .loading-screen-container,
-    .congratulations-screen-container { min-height: calc(100vh - 96px) !important;}
+    .congratulations-screen-container,
+    .options-select-container { min-height: calc(100vh - 96px) !important;}
 }
 
 .name-header {
@@ -121,6 +122,32 @@ section{
     background-position: center;
 }
 
+.loading-fun-text {
+    bottom: 32px;
+}
+
+.options-select-slide {
+    background: linear-gradient(#10152699, #10152699), url("../img/trivia-welcome-screen.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.glass-effect {
+    border: 1px solid linear-gradient(rgba(255,255,255,1), rgba(150, 150, 150, 1));
+    background: linear-gradient(94.13deg, #10152639 3.84%, #10152699 108.43%);
+    box-shadow: inset 0px 4px 24px -1px rgba(0,0,0,0.05);
+    backdrop-filter: blur(2px);
+    /* backdrop-filter: brightness(60%); */
+    backdrop-filter: contrast(40%);
+    backdrop-filter: drop-shadow(4px 4px 10px blue);
+    /* backdrop-filter: grayscale(30%); */
+    backdrop-filter: hue-rotate(120deg);
+    /* backdrop-filter: invert(70%); */
+    backdrop-filter: opacity(80%);
+    /* backdrop-filter: sepia(90%); */
+    backdrop-filter: saturate(80%);
+}
+
 .countdown-wrap {
     top: 20px;
     right: 5%;
@@ -139,7 +166,7 @@ section{
     height: 3px;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"] {
     appearance: none;
     width: 22px;
     height: 22px;
@@ -148,7 +175,7 @@ input[type="checkbox"] {
     background: transparent;
 }
 
-input[type="checkbox"]:checked {
+input[type="checkbox"]:checked, input[type="radio"]:checked {
     background: url("../img/blue-tick-1.jpg");
     background-size: cover;
     background-position: center;
