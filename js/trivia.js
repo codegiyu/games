@@ -139,7 +139,6 @@ startBtn.addEventListener("click", () => {
 
 topicsSelect.forEach(topic => {
     topic.addEventListener("change", () => {
-        console.log(topicsSelect)
         if (topicSelected() && difficultySelected()) {
             optionsBtn.disabled = false;
             console.log("enabled")
@@ -160,7 +159,6 @@ function topicSelected() {
 
 difficultySelect.forEach(difficulty => {
     difficulty.addEventListener("change", () => {
-        console.log(difficultySelect);
         if (topicSelected() && difficultySelected()) {
             optionsBtn.disabled = false;
             console.log("enabled")
@@ -317,10 +315,11 @@ let newQuestionsArray = [];
 let newOptionsArray = [];
 
 function getQuestions() {
-    fetch(`https://the-trivia-api.com/api/questions?${quizFetchTopics}&limit=50&difficulty=${quizFetchDifficulty}`)
+    fetch(`https://the-trivia-api.com/api/questions?categories=${quizFetchTopics}&limit=50&difficulty=${quizFetchDifficulty}`)
         .then((response) => response.json())
         .then((data) => {
             
+    console.log(`https://the-trivia-api.com/api/questions?categories=${quizFetchTopics}&limit=50&difficulty=${quizFetchDifficulty}`)
             //    
             questionsArray = data;
             let Q1 = questionsArray[Math.floor(Math.random() * questionsArray.length)];
@@ -584,13 +583,15 @@ function showAnswer(n) {
         })
         
         if (pointsAchieved < 150) {
-            congratsText.innerHTML = "What type of playing is this?"
+            congratsText.innerHTML = "What type of playing is this?🤡"
         } else if (pointsAchieved >= 150 && pointsAchieved < 300) {
-            congratsText.innerHTML = "Is this playing?"
+            congratsText.innerHTML = "Is this playing?🙄"
         } else if (pointsAchieved >= 300 && pointsAchieved < 500) {
-            congratsText.innerHTML = "Failure is success in progress"
+            congratsText.innerHTML = "Failure is success in progress🙂"
         } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
-            congratsText.innerHTML = "Congratulations!"
+            congratsText.innerHTML = "Congratulations!😎"
+        } else {
+            congratsText.innerHTML = "You're an inspiration!🤩"
         }
          
         playerNameText.innerHTML = playerName;
@@ -618,7 +619,6 @@ function nextQuestion(n) {
 }
 
 let radios = document.querySelectorAll('.quiz-checkbox');
-console.log(radios)
 radios.forEach(radio => {
     radio.addEventListener("click", () => {
         let radioName = radio.getAttribute("class").split(" ")[1];
@@ -801,7 +801,7 @@ radios.forEach(radio => {
                     } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
                         congratsText.innerHTML = "Congratulations!😎"
                     } else {
-                        congratsText.innerHTML = "You're an inspiration!😍"
+                        congratsText.innerHTML = "You're an inspiration!🤩"
                     }
                     
                     playerNameText.innerHTML = playerName;
@@ -828,13 +828,15 @@ radios.forEach(radio => {
                         track.classList.replace("bg-neutral-1", "bg-red");
                     })
                     if (pointsAchieved < 150) {
-                        congratsText.innerHTML = "What type of playing is this?"
+                        congratsText.innerHTML = "What type of playing is this?🤡"
                     } else if (pointsAchieved >= 150 && pointsAchieved < 300) {
-                        congratsText.innerHTML = "Is this playing?"
+                        congratsText.innerHTML = "Is this playing?🙄"
                     } else if (pointsAchieved >= 300 && pointsAchieved < 500) {
-                        congratsText.innerHTML = "Failure is success in progress"
+                        congratsText.innerHTML = "Failure is success in progress🙂"
                     } else if (pointsAchieved >= 500 && pointsAchieved < 800) {
-                        congratsText.innerHTML = "Congratulations!"
+                        congratsText.innerHTML = "Congratulations!😎"
+                    } else {
+                        congratsText.innerHTML = "You're an inspiration!🤩"
                     }
                     
                     playerNameText.innerHTML = playerName;
